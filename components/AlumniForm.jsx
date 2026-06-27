@@ -19,15 +19,16 @@ export default function AlumniForm() {
   
   async function submit(event) {
     event.preventDefault();
+    const formEl = event.currentTarget;
     setStatus("Submitting...");
-    const form = Object.fromEntries(new FormData(event.currentTarget));
+    const form = Object.fromEntries(new FormData(formEl));
     const res = await fetch("/api/alumni", { 
       method: "POST", 
       headers: { "Content-Type": "application/json" }, 
       body: JSON.stringify(form) 
     });
     setStatus(res.ok ? "Registration submitted for approval." : "Please check the form and try again.");
-    if (res.ok) event.currentTarget.reset();
+    if (res.ok) formEl.reset();
   }
   
   return (

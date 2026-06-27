@@ -8,15 +8,16 @@ export default function ContactForm() {
   
   async function submit(event) {
     event.preventDefault();
+    const formEl = event.currentTarget;
     setStatus("Sending...");
-    const form = Object.fromEntries(new FormData(event.currentTarget));
+    const form = Object.fromEntries(new FormData(formEl));
     const res = await fetch("/api/contact", { 
       method: "POST", 
       headers: { "Content-Type": "application/json" }, 
       body: JSON.stringify(form) 
     });
     setStatus(res.ok ? "Your message has been sent successfully." : "Please check the form and try again.");
-    if (res.ok) event.currentTarget.reset();
+    if (res.ok) formEl.reset();
   }
   
   return (
