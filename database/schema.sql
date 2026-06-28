@@ -89,10 +89,11 @@ CREATE TABLE IF NOT EXISTS site_settings (
   facebook VARCHAR(255),
   instagram VARCHAR(255),
   youtube VARCHAR(255),
+  whatsapp VARCHAR(255),
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-INSERT INTO site_settings (id, institute_name, short_name, tagline, mission, vision, objectives, principal_message, phone, email, address, facebook, instagram, youtube)
+INSERT INTO site_settings (id, institute_name, short_name, tagline, mission, vision, objectives, principal_message, phone, email, address, facebook, instagram, youtube, whatsapp)
 VALUES (
   1,
   'GOVERNMENT POLYTECHNIC INSTITUTE FOR WOMEN',
@@ -107,7 +108,8 @@ VALUES (
   'Dera Ismail Khan, Khyber Pakhtunkhwa, Pakistan',
   'https://m.facebook.com/gpiwdikhan',
   '',
-  ''
+  '',
+  'https://wa.me/message/7PDY6L52IVPPP1'
 ) ON DUPLICATE KEY UPDATE id = id;
 
 TRUNCATE TABLE courses;

@@ -137,7 +137,7 @@ function List({ title, items, render }) {
 }
 
 function SettingsManager() {
-  const fields = ["institute_name", "short_name", "tagline", "mission", "vision", "objectives", "principal_message", "phone", "email", "address", "facebook", "instagram", "youtube"];
+  const fields = ["institute_name", "short_name", "tagline", "mission", "vision", "objectives", "principal_message", "phone", "email", "address", "facebook", "instagram", "youtube", "whatsapp"];
   const [form, setForm] = useState({});
   const [message, setMessage] = useState("");
   useEffect(() => { fetch("/api/settings").then((r) => r.json()).then((d) => setForm(d.settings || {})); }, []);

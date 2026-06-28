@@ -23,7 +23,7 @@ export async function PUT(request) {
       return ok();
     }
     await query(
-      "UPDATE site_settings SET institute_name=:institute_name, short_name=:short_name, tagline=:tagline, mission=:mission, vision=:vision, objectives=:objectives, principal_message=:principal_message, phone=:phone, email=:email, address=:address, facebook=:facebook, instagram=:instagram, youtube=:youtube WHERE id=1",
+      "UPDATE site_settings SET institute_name=:institute_name, short_name=:short_name, tagline=:tagline, mission=:mission, vision=:vision, objectives=:objectives, principal_message=:principal_message, phone=:phone, email=:email, address=:address, facebook=:facebook, instagram=:instagram, youtube=:youtube, whatsapp=:whatsapp WHERE id=1",
       data
     );
     return ok();

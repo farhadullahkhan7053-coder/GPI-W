@@ -1,7 +1,8 @@
 node_modules
 .next
 .env
-public/uploads/*
-!public/uploads/.gitkeep
+# Track default uploads in git so they are deployed to Vercel
+# public/uploads/*
+# !public/uploads/.gitkeep
 npm-debug.log*
 *.log
