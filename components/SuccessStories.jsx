@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Check, ArrowRight, Star, Clock, Briefcase, Milestone } from "lucide-react";
 
 const stories = [
@@ -197,20 +198,20 @@ export default function SuccessStories() {
                     ))}
                   </div>
 
-                  {/* Footer Bar */}
+                  {/* Footer Bar (Fixed: Links to alumni directory instead of opening modal) */}
                   <div className="pt-4 border-t border-slate-50 flex items-center justify-between text-[11px] font-extrabold" style={{ transform: "translateZ(15px)" }}>
                     <span className="text-green-600 flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
                       Verified Case
                     </span>
                     
-                    <button 
-                      onClick={() => window.dispatchEvent(new Event("open-admission-modal"))}
+                    <Link 
+                      href="/alumni"
                       className="group/link inline-flex items-center gap-1 text-brand-700 hover:text-brand-900 transition-colors"
                     >
-                      View Journey 
+                      View Directory 
                       <ArrowRight size={12} className="transition-transform duration-300 group-hover/link:translate-x-1" />
-                    </button>
+                    </Link>
                   </div>
 
                 </div>

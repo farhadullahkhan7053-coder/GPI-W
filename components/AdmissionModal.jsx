@@ -65,16 +65,45 @@ export default function AdmissionModal() {
     setStep((s) => s - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateStep()) return;
 
     setSubmitting(true);
-    // Simulate API Submission
-    setTimeout(() => {
+    try {
+      const payload = {
+        name: formData.name,
+        email: formData.email.trim() || `${formData.name.toLowerCase().replace(/\s+/g, "")}@example.com`,
+        phone: formData.phone,
+        subject: `Online Admission Request: ${formData.course}`,
+        message: `Applicant Details:\n` +
+                 `- Father's Name: ${formData.fatherName}\n` +
+                 `- Domicile: ${formData.domicile}\n` +
+                 `- Applied Program: ${formData.course}\n` +
+                 `- Matric Board/School: ${formData.matricBoard}\n` +
+                 `- Obtained Marks: ${formData.matricMarks} / ${formData.matricTotal}\n` +
+                 `- Passing Year: ${formData.passingYear}`
+      };
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        setStep(4);
+      } else {
+        const json = await res.json();
+        setErrors({ submit: json.error || "Submission failed. Please verify fields and try again." });
+      }
+    } catch {
+      setErrors({ submit: "A network error occurred. Please try again." });
+    } finally {
       setSubmitting(false);
-      setStep(4);
-    }, 1500);
+    }
   };
 
   if (!isOpen) return null;
@@ -108,163 +137,166 @@ export default function AdmissionModal() {
           </div>
           <button 
             onClick={() => setIsOpen(false)}
-            className="rounded-full bg-white/10 hover:bg-white/20 p-2 text-white transition-all active:scale-95 border border-white/10"
-            aria-label="Close modal"
+            className="rounded-full bg-white/10 p-1.5 text-white hover:bg-white/20 transition-all border border-white/10"
           >
             <X size={18} />
           </button>
         </div>
 
-        {/* Progress Bar */}
-        {step < 4 && (
-          <div className="bg-brand-50/50 px-6 py-3 border-b border-brand-100 flex items-center justify-between text-xs font-bold text-slate-500">
-            <div className="flex items-center gap-1.5">
-              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${step >= 1 ? "bg-brand-700 text-white" : "bg-slate-200 text-slate-500"}`}>1</span>
-              <span className={step === 1 ? "text-brand-900 font-extrabold" : ""}>Personal Info</span>
+        {/* Form Container */}
+        <form onSubmit={handleSubmit} className="p-6 md:p-8">
+          
+          {/* Step Indicators */}
+          {step < 4 && (
+            <div className="flex items-center justify-between mb-8 text-xs font-bold text-slate-400">
+              <span className={`flex items-center gap-1.5 ${step === 1 ? "text-brand-900 font-extrabold" : ""}`}>
+                <span className={`w-6 h-6 rounded-full flex items-center justify-center border ${step === 1 ? "bg-brand-900 border-brand-900 text-white" : "border-slate-200"}`}>1</span>
+                Personal
+              </span>
+              <span className="w-10 h-px bg-slate-200" />
+              <span className={`flex items-center gap-1.5 ${step === 2 ? "text-brand-900 font-extrabold" : ""}`}>
+                <span className={`w-6 h-6 rounded-full flex items-center justify-center border ${step === 2 ? "bg-brand-900 border-brand-900 text-white" : "border-slate-200"}`}>2</span>
+                Program
+              </span>
+              <span className="w-10 h-px bg-slate-200" />
+              <span className={`flex items-center gap-1.5 ${step === 3 ? "text-brand-900 font-extrabold" : ""}`}>
+                <span className={`w-6 h-6 rounded-full flex items-center justify-center border ${step === 3 ? "bg-brand-900 border-brand-900 text-white" : "border-slate-200"}`}>3</span>
+                Academic
+              </span>
             </div>
-            <div className="h-0.5 w-8 bg-slate-200 flex-1 mx-2" />
-            <div className="flex items-center gap-1.5">
-              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${step >= 2 ? "bg-brand-700 text-white" : "bg-slate-200 text-slate-500"}`}>2</span>
-              <span className={step === 2 ? "text-brand-900 font-extrabold" : ""}>Select Course</span>
-            </div>
-            <div className="h-0.5 w-8 bg-slate-200 flex-1 mx-2" />
-            <div className="flex items-center gap-1.5">
-              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${step >= 3 ? "bg-brand-700 text-white" : "bg-slate-200 text-slate-500"}`}>3</span>
-              <span className={step === 3 ? "text-brand-900 font-extrabold" : ""}>Academics</span>
-            </div>
-          </div>
-        )}
+          )}
 
-        <form onSubmit={handleSubmit} className="p-6">
-          {/* STEP 1: Personal Information */}
+          {/* STEP 1: Personal Info */}
           {step === 1 && (
             <div className="space-y-4 animate-fade-in">
-              <div className="flex gap-2 items-center mb-1 text-slate-800">
-                <User size={18} className="text-brand-700" />
-                <h4 className="font-extrabold text-sm uppercase tracking-wider text-brand-900">Personal Details</h4>
-              </div>
               <div>
-                <label className="block text-xs font-bold text-slate-500 mb-1">Full Name</label>
-                <input 
-                  type="text" 
-                  name="name" 
-                  value={formData.name} 
-                  onChange={handleChange}
-                  placeholder="Applicant full name"
-                  className={`w-full rounded-xl border px-4 py-3 text-base focus:ring-2 focus:ring-brand-100 focus:border-brand-700 outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-slate-200"}`}
-                />
+                <label className="block text-xs font-bold text-slate-500 mb-1">Full Name *</label>
+                <div className="relative">
+                  <span className="absolute left-4 top-3.5 text-slate-400"><User size={18} /></span>
+                  <input 
+                    type="text" 
+                    name="name" 
+                    value={formData.name} 
+                    onChange={handleChange}
+                    placeholder="Enter your full name"
+                    className={`w-full rounded-xl border pl-11 pr-4 py-3 text-base focus:ring-2 focus:ring-brand-100 focus:border-brand-700 outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-slate-200"}`}
+                  />
+                </div>
                 {errors.name && <p className="text-red-500 text-xs font-bold mt-1">{errors.name}</p>}
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 mb-1">Father's Name</label>
+                <label className="block text-xs font-bold text-slate-500 mb-1">Father's Name *</label>
                 <input 
                   type="text" 
                   name="fatherName" 
                   value={formData.fatherName} 
                   onChange={handleChange}
-                  placeholder="Father's full name"
+                  placeholder="Enter father's name"
                   className={`w-full rounded-xl border px-4 py-3 text-base focus:ring-2 focus:ring-brand-100 focus:border-brand-700 outline-none transition-all ${errors.fatherName ? "border-red-500 bg-red-50/20" : "border-slate-200"}`}
                 />
                 {errors.fatherName && <p className="text-red-500 text-xs font-bold mt-1">{errors.fatherName}</p>}
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 mb-1">WhatsApp / Phone</label>
+                  <label className="block text-xs font-bold text-slate-500 mb-1">Phone Number *</label>
                   <input 
                     type="tel" 
                     name="phone" 
                     value={formData.phone} 
                     onChange={handleChange}
-                    placeholder="03001234567"
+                    placeholder="e.g. 03361936986"
                     className={`w-full rounded-xl border px-4 py-3 text-base focus:ring-2 focus:ring-brand-100 focus:border-brand-700 outline-none transition-all ${errors.phone ? "border-red-500 bg-red-50/20" : "border-slate-200"}`}
                   />
                   {errors.phone && <p className="text-red-500 text-xs font-bold mt-1">{errors.phone}</p>}
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 mb-1">Domicile District</label>
-                  <select 
-                    name="domicile" 
-                    value={formData.domicile} 
+                  <label className="block text-xs font-bold text-slate-500 mb-1">Email Address</label>
+                  <input 
+                    type="email" 
+                    name="email" 
+                    value={formData.email} 
                     onChange={handleChange}
+                    placeholder="e.g. name@domain.com"
                     className="w-full rounded-xl border border-slate-200 px-4 py-3 text-base focus:ring-2 focus:ring-brand-100 focus:border-brand-700 outline-none transition-all"
-                  >
-                    <option>Dera Ismail Khan</option>
-                    <option>Tank</option>
-                    <option>Lakki Marwat</option>
-                    <option>Bannu</option>
-                    <option>Bhakar</option>
-                    <option>Other</option>
-                  </select>
+                  />
                 </div>
               </div>
-              
+
               <div>
-                <label className="block text-xs font-bold text-slate-500 mb-1">Email Address (Optional)</label>
-                <input 
-                  type="email" 
-                  name="email" 
-                  value={formData.email} 
+                <label className="block text-xs font-bold text-slate-500 mb-1">Domicile District</label>
+                <select 
+                  name="domicile"
+                  value={formData.domicile}
                   onChange={handleChange}
-                  placeholder="email@example.com"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-base focus:ring-2 focus:ring-brand-100 focus:border-brand-700 outline-none transition-all"
-                />
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-base bg-white focus:ring-2 focus:ring-brand-100 focus:border-brand-700 outline-none transition-all"
+                >
+                  <option value="Dera Ismail Khan">Dera Ismail Khan</option>
+                  <option value="Tank">Tank</option>
+                  <option value="Lakki Marwat">Lakki Marwat</option>
+                  <option value="Bannu">Bannu</option>
+                  <option value="South Waziristan">South Waziristan</option>
+                  <option value="Other">Other District</option>
+                </select>
               </div>
             </div>
           )}
 
           {/* STEP 2: Course Selection */}
           {step === 2 && (
-            <div className="space-y-4 animate-fade-in">
-              <div className="flex gap-2 items-center mb-1 text-slate-800">
-                <BookOpen size={18} className="text-brand-700" />
-                <h4 className="font-extrabold text-sm uppercase tracking-wider text-brand-900">Choose Program/Trade</h4>
-              </div>
-              <p className="text-slate-500 text-xs font-medium">Select one technical or vocational program to apply for:</p>
-              
-              <div className="grid gap-2.5 max-h-[280px] overflow-y-auto pr-1">
-                {courses.map((c) => {
-                  const isSelected = formData.course === c.name;
-                  return (
-                    <button
-                      type="button"
-                      key={c.name}
-                      onClick={() => setFormData({ ...formData, course: c.name })}
-                      className={`w-full text-left rounded-xl p-3.5 border transition-all flex items-center justify-between group ${isSelected ? "border-brand-700 bg-brand-50/50 shadow-sm" : "border-slate-200 hover:bg-slate-50"}`}
-                    >
-                      <div>
-                        <p className={`text-sm font-extrabold ${isSelected ? "text-brand-900" : "text-slate-700"}`}>{c.name}</p>
-                        <p className="text-xs text-slate-400 font-semibold mt-0.5">{c.type}</p>
-                      </div>
-                      <span className={`w-4 h-4 rounded-full border flex items-center justify-center ${isSelected ? "border-brand-700 bg-brand-700" : "border-slate-300"}`}>
-                        {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                      </span>
-                    </button>
-                  );
-                })}
+            <div className="space-y-4 animate-fade-in max-h-[350px] overflow-y-auto pr-1">
+              <label className="block text-xs font-bold text-slate-500 mb-2">Select Your Program / Trade *</label>
+              <div className="space-y-2">
+                {courses.map((course) => (
+                  <label 
+                    key={course.name}
+                    className={`flex items-start gap-3 rounded-2xl border p-4 cursor-pointer transition-all duration-200 ${
+                      formData.course === course.name 
+                        ? "border-brand-700 bg-brand-50/40 ring-1 ring-brand-700" 
+                        : "border-slate-150 hover:bg-slate-50"
+                    }`}
+                  >
+                    <input 
+                      type="radio" 
+                      name="course" 
+                      value={course.name} 
+                      checked={formData.course === course.name}
+                      onChange={handleChange}
+                      className="mt-1 text-brand-700 focus:ring-brand-700"
+                    />
+                    <div>
+                      <p className="font-extrabold text-brand-900 text-sm leading-snug">{course.name}</p>
+                      <span className="text-[10px] font-bold text-slate-450 uppercase tracking-wider block mt-1">{course.type}</span>
+                    </div>
+                  </label>
+                ))}
               </div>
             </div>
           )}
 
-          {/* STEP 3: Academic History */}
+          {/* STEP 3: Academic Qualifications */}
           {step === 3 && (
             <div className="space-y-4 animate-fade-in">
-              <div className="flex gap-2 items-center mb-1 text-slate-800">
-                <GraduationCap size={18} className="text-brand-700" />
-                <h4 className="font-extrabold text-sm uppercase tracking-wider text-brand-900">Academic Background</h4>
-              </div>
-              
+              {errors.submit && (
+                <div className="p-3 bg-red-50 border border-red-150 rounded-xl text-red-700 text-xs font-bold">
+                  {errors.submit}
+                </div>
+              )}
+
               <div>
-                <label className="block text-xs font-bold text-slate-500 mb-1">Matriculation Board / School</label>
-                <input 
-                  type="text" 
-                  name="matricBoard" 
-                  value={formData.matricBoard} 
-                  onChange={handleChange}
-                  placeholder="e.g. BISE Bannu, BISE Peshawar"
-                  className={`w-full rounded-xl border px-4 py-3 text-base focus:ring-2 focus:ring-brand-100 focus:border-brand-700 outline-none transition-all ${errors.matricBoard ? "border-red-500 bg-red-50/20" : "border-slate-200"}`}
-                />
+                <label className="block text-xs font-bold text-slate-500 mb-1">Matriculation Board / School *</label>
+                <div className="relative">
+                  <span className="absolute left-4 top-3.5 text-slate-400"><GraduationCap size={18} /></span>
+                  <input 
+                    type="text" 
+                    name="matricBoard" 
+                    value={formData.matricBoard} 
+                    onChange={handleChange}
+                    placeholder="e.g. BISE D.I. Khan"
+                    className={`w-full rounded-xl border pl-11 pr-4 py-3 text-base focus:ring-2 focus:ring-brand-100 focus:border-brand-700 outline-none transition-all ${errors.matricBoard ? "border-red-500 bg-red-50/20" : "border-slate-200"}`}
+                  />
+                </div>
                 {errors.matricBoard && <p className="text-red-500 text-xs font-bold mt-1">{errors.matricBoard}</p>}
               </div>
 
