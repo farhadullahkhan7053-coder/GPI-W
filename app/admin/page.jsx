@@ -10,6 +10,30 @@ const emptyGallery = { title: "", category: "Campus", image: "" };
 
 export default function AdminPage() {
   const [active, setActive] = useState("overview");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => {
+        if (!res.ok) {
+          window.location.href = "/admin/login";
+        } else {
+          setLoading(false);
+        }
+      })
+      .catch(() => {
+        window.location.href = "/admin/login";
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center bg-slate-50">
+        <p className="text-sm font-bold text-slate-500 animate-pulse">Verifying credentials...</p>
+      </div>
+    );
+  }
+
   return (
     <section className="bg-slate-50 py-8">
       <div className="container grid gap-6 lg:grid-cols-[260px_1fr]">
@@ -57,7 +81,8 @@ function CrudManager({ title, api, empty, fields, uploadField, deleteOnly }) {
     setMessage("Saving...");
     const url = editing ? `${api}/${editing}` : api;
     const res = await fetch(url, { method: editing ? "PUT" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
-    setMessage(res.ok ? "Saved successfully." : "Save failed.");
+    const json = await res.json();
+    setMessage(res.ok ? "Saved successfully." : (json.error || "Save failed."));
     if (res.ok) { setForm(empty); setEditing(null); load(); }
   }
   async function remove(id) {
@@ -72,9 +97,9 @@ function CrudManager({ title, api, empty, fields, uploadField, deleteOnly }) {
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           {fields.map((field) => <Field key={field.name} field={field} form={form} setForm={setForm} />)}
         </div>
-        {uploadField && <input type="file" className="mt-4 block" onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} />}
+        {uploadField && <input type="file" className="mt-4 block text-sm" onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} />}
         <button className="mt-5 rounded-md bg-brand-700 px-5 py-3 font-bold text-white">{editing ? "Update" : "Add"} Record</button>
-        {message && <span className="ml-4 text-sm font-semibold text-brand-700">{message}</span>}
+        {message && <span className="ml-4 text-sm font-semibold text-brand-705">{message}</span>}
       </form>
       <div className="grid gap-3">
         {items.map((item) => (
@@ -133,7 +158,7 @@ function MessageManager() {
 }
 
 function List({ title, items, render }) {
-  return <div className="grid gap-3"><h2 className="text-2xl font-black text-brand-900">{title}</h2>{items.map((item) => <div key={item.id} className="rounded-md bg-white p-4 shadow-soft"><p className="font-black text-brand-900">{item.full_name || item.name || item.subject}</p><p className="mt-1 text-sm text-slate-600">{item.course || item.email} - {item.status}</p><p className="mt-2 text-sm text-slate-600">{item.message || item.success_story}</p><div className="mt-3 flex flex-wrap gap-2">{render(item)}</div></div>)}</div>;
+  return <div className="grid gap-3"><h2 className="text-2xl font-black text-brand-900">{title}</h2>{items.map((item) => <div key={item.id} className="rounded-md bg-white p-4 shadow-soft"><p className="font-black text-brand-900">{item.full_name || item.name || item.subject}</p><p className="mt-1 text-sm text-slate-650">{item.course || item.email} - {item.status}</p><p className="mt-2 text-sm text-slate-650">{item.message || item.success_story}</p><div className="mt-3 flex flex-wrap gap-2">{render(item)}</div></div>)}</div>;
 }
 
 function SettingsManager() {
@@ -143,8 +168,10 @@ function SettingsManager() {
   useEffect(() => { fetch("/api/settings").then((r) => r.json()).then((d) => setForm(d.settings || {})); }, []);
   async function save(e) {
     e.preventDefault();
+    setMessage("Saving...");
     const res = await fetch("/api/settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
-    setMessage(res.ok ? "Settings updated." : "Update failed.");
+    const json = await res.json();
+    setMessage(res.ok ? "Settings updated." : (json.error || "Update failed."));
   }
   return <form onSubmit={save} className="rounded-md bg-white p-6 shadow-soft"><h2 className="text-2xl font-black text-brand-900">Site Settings</h2><div className="mt-5 grid gap-4 md:grid-cols-2">{fields.map((name) => <textarea key={name} rows={["mission", "vision", "objectives", "principal_message"].includes(name) ? 4 : 1} value={form[name] || ""} onChange={(e) => setForm((old) => ({ ...old, [name]: e.target.value }))} placeholder={name.replaceAll("_", " ")} className="rounded-md border-slate-200 text-base" />)}</div><button className="mt-5 rounded-md bg-brand-700 px-5 py-3 font-bold text-white">Save Settings</button>{message && <span className="ml-4 text-sm font-semibold text-brand-700">{message}</span>}</form>;
 }
@@ -154,8 +181,10 @@ function ProfileManager() {
   const [message, setMessage] = useState("");
   async function save(e) {
     e.preventDefault();
+    setMessage("Saving...");
     const res = await fetch("/api/profile", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
-    setMessage(res.ok ? "Profile updated." : "Update failed.");
+    const json = await res.json();
+    setMessage(res.ok ? "Profile updated." : (json.error || "Update failed."));
   }
   return <form onSubmit={save} className="grid gap-4 rounded-md bg-white p-6 shadow-soft"><h2 className="text-2xl font-black text-brand-900">Admin Profile</h2><input placeholder="Name" className="rounded-md border-slate-200 text-base" onChange={(e) => setForm({ ...form, name: e.target.value })} /><input placeholder="Email" type="email" className="rounded-md border-slate-200 text-base" onChange={(e) => setForm({ ...form, email: e.target.value })} /><input placeholder="New password" type="password" className="rounded-md border-slate-200 text-base" onChange={(e) => setForm({ ...form, password: e.target.value })} /><button className="rounded-md bg-brand-700 px-5 py-3 font-bold text-white">Update Profile</button>{message && <p className="text-sm font-semibold text-brand-700">{message}</p>}</form>;
 }
