@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, ArrowRight, Star, Clock, Briefcase, Sparkles, Milestone } from "lucide-react";
+import { Check, ArrowRight, Star, Clock, Briefcase, Milestone } from "lucide-react";
 
 const stories = [
   {
@@ -39,24 +39,6 @@ const stories = [
       { label: "Projects", value: "20+ Done", icon: Star }
     ],
     tools: ["ChatGPT", "Gemini", "Canva AI", "Microsoft Designer"]
-  },
-  {
-    id: 3,
-    name: "Sadia Begum",
-    initials: "SB",
-    badge: "Verified Student Success",
-    course: "DAE Dress Designing",
-    department: "Fashion & Designing",
-    batch: "Batch 2025",
-    headline: "Modern Fashion Drafting in Minutes",
-    highlight: "Fashion Drafting",
-    story: "Sadia integrated generative design tools into her traditional boutique workflow. By generating concepts digitally and using AI to speed up drafting layouts, she reduced conceptualization time from hours to minutes. This allows her to serve double the client load at her boutique.",
-    stats: [
-      { label: "Time Saved", value: "4h → 30 mins", icon: Clock },
-      { label: "Career Status", value: "Boutique Owner", icon: Briefcase },
-      { label: "Projects", value: "50+ Designs", icon: Star }
-    ],
-    tools: ["Midjourney", "Adobe Firefly", "Canva AI", "ChatGPT"]
   }
 ];
 
@@ -64,7 +46,7 @@ export default function SuccessStories() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
   return (
-    <section className="relative overflow-hidden bg-slate-50/50 py-24 border-t border-slate-100">
+    <section className="relative overflow-hidden bg-slate-50/50 py-20 border-b border-slate-100">
       
       {/* Background AI-inspired digital dots / abstract shapes */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] select-none">
@@ -89,7 +71,7 @@ export default function SuccessStories() {
       <div className="container relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
+        <div className="text-center max-w-3xl mx-auto mb-14 animate-fade-in">
           <p className="font-extrabold text-gold uppercase tracking-wider text-xs flex items-center justify-center gap-1.5">
             <Milestone size={14} className="stroke-[2.5]" /> Student Achievements
           </p>
@@ -101,15 +83,14 @@ export default function SuccessStories() {
           </p>
         </div>
 
-        {/* Responsive Grid / Swipeable Carousel on Mobile */}
+        {/* Centered 2-card Responsive Grid / Swipeable Carousel on Mobile */}
         <div 
-          className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-6 pb-6 lg:grid lg:grid-cols-3 lg:overflow-x-visible lg:pb-0 scroll-smooth"
+          className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-6 pb-6 lg:grid lg:grid-cols-2 lg:max-w-4xl lg:mx-auto lg:overflow-x-visible lg:pb-0 scroll-smooth"
           style={{ WebkitOverflowScrolling: "touch" }}
         >
           {stories.map((item, idx) => {
             const isHovered = hoveredCard === item.id;
             
-            // Function to split and highlight keywords in Gold
             const renderHeadline = (headline, highlight) => {
               if (!highlight) return headline;
               const parts = headline.split(highlight);
@@ -131,8 +112,8 @@ export default function SuccessStories() {
                   animationDelay: `${(idx + 1) * 0.15}s` 
                 }}
                 className={`snap-center shrink-0 w-[88vw] sm:w-[50vw] lg:w-auto rounded-3xl bg-white border border-slate-100 p-8 shadow-soft flex flex-col justify-between transition-all duration-300 transform preserve-3d ${
-                  isHovered ? "-translate-y-2 shadow-xl border-brand-200/50" : ""
-                } animate-fade-in-up`}
+                  isHovered ? "-translate-y-2.5 shadow-xl border-brand-200/50 scale-[1.01]" : ""
+                } ${idx === 0 ? "animate-[float_6s_ease-in-out_infinite]" : "animate-[float_6s_ease-in-out_infinite_1.5s]"}`}
               >
                 <div>
                   

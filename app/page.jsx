@@ -76,7 +76,10 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 4. Dynamic Courses Tab Filter Grid */}
+      {/* 4. Premium Student Success Stories Section (Pushed to the Front) */}
+      <SuccessStories />
+
+      {/* 5. Dynamic Courses Tab Filter Grid */}
       <section className="section bg-white">
         <div className="container">
           <div className="mb-12">
@@ -87,7 +90,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 5. Online Admission Funnel Advertisement Banner */}
+      {/* 6. Online Admission Funnel Advertisement Banner */}
       <section className="section bg-slate-50/50">
         <div className="container">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_.9fr] items-center bg-white border border-slate-100 rounded-3xl p-8 md:p-12 shadow-soft">
@@ -117,7 +120,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 6. Principal Message Section */}
+      {/* 7. Principal Message Section */}
       <section className="section bg-white overflow-hidden">
         <div className="container grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
           <div className="relative group overflow-hidden rounded-2xl shadow-soft animate-slide-in-left">
@@ -136,7 +139,7 @@ export default async function Home() {
         </div>
       </section>
       
-      {/* 7. Gallery Section */}
+      {/* 8. Gallery Section */}
       <section className="section bg-slate-50/50">
         <div className="container">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
@@ -151,9 +154,6 @@ export default async function Home() {
           <GalleryGrid images={gallery} />
         </div>
       </section>
-
-      {/* 8. Premium Student Success Stories Section */}
-      <SuccessStories />
       
       {/* 9. Features Grid */}
       <section className="section bg-white">
