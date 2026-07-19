@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Clock, GraduationCap, Briefcase, CheckCircle } from "lucide-react";
 import CourseCard from "@/components/CourseCard";
 import ApplyNowButton from "@/components/ApplyNowButton";
+import FallbackImage from "@/components/FallbackImage";
 import { getCourseBySlug, getPublicCourses } from "@/lib/content";
 
 export async function generateMetadata({ params }) {
@@ -96,9 +97,9 @@ export default async function CourseDetailsPage({ params }) {
           {/* Right side image */}
           <div className="relative group overflow-hidden rounded-2xl shadow-soft animate-slide-in-right">
             <div className="absolute inset-0 bg-brand-900/10 mix-blend-multiply transition-opacity group-hover:opacity-0 duration-500" />
-            <img 
+            <FallbackImage 
               className="h-[260px] md:h-[480px] w-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105" 
-              src={course.image || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop"} 
+              src={course.image} 
               alt={course.title} 
             />
           </div>

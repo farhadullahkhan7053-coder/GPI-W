@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { X, Eye } from "lucide-react";
+import FallbackImage from "@/components/FallbackImage";
 
 export default function GalleryGrid({ images }) {
   const [category, setCategory] = useState("All");
@@ -38,7 +39,7 @@ export default function GalleryGrid({ images }) {
             className="group relative overflow-hidden rounded-2xl bg-white text-left shadow-soft border border-slate-100 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl animate-fade-in"
           >
             <div className="relative h-64 w-full overflow-hidden bg-slate-100">
-              <img 
+              <FallbackImage 
                 src={image.image} 
                 alt={image.title} 
                 className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
@@ -88,7 +89,7 @@ export default function GalleryGrid({ images }) {
             className="relative max-h-[85vh] max-w-[90vw] overflow-hidden rounded-2xl bg-black shadow-2xl animate-[zoomIn_0.3s_cubic-bezier(0.34,1.56,0.64,1)_forwards]"
             onClick={(e) => e.stopPropagation()}
           >
-            <img 
+            <FallbackImage 
               src={active.image} 
               alt={active.title} 
               className="max-h-[80vh] w-full object-contain" 

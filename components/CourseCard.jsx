@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Clock } from "lucide-react";
+import FallbackImage from "@/components/FallbackImage";
 
 export default function CourseCard({ course, style }) {
   const [tiltStyle, setTiltStyle] = useState({});
@@ -15,7 +16,6 @@ export default function CourseCard({ course, style }) {
     const xc = rect.width / 2;
     const yc = rect.height / 2;
     
-    // Calculate tilt degree (-7 to +7 degrees)
     const angleX = ((yc - y) / yc) * 7;
     const angleY = ((x - xc) / xc) * 7;
 
@@ -41,8 +41,8 @@ export default function CourseCard({ course, style }) {
     >
       {/* Card Image Wrapper */}
       <div className="relative h-52 bg-brand-100 overflow-hidden shrink-0" style={{ transform: "translateZ(10px)" }}>
-        <img 
-          src={course.image || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=900&auto=format&fit=crop"} 
+        <FallbackImage 
+          src={course.image} 
           alt={course.title} 
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
         />
