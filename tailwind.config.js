@@ -5,17 +5,20 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          50: "#edf8f1",
-          100: "#d5efdd",
-          600: "#177245",
-          700: "#105c38",
-          800: "#0c482d",
-          900: "#08351f"
+          50: "#f0f5fa",
+          100: "#dbeafe",
+          200: "#bfdbfe",
+          350: "#3b82f6", // fallback or nice hover border
+          600: "#0f3d69",
+          700: "#0a2d52",
+          800: "#002244",
+          900: "#02162e",
+          950: "#010b1a"
         },
-        gold: "#c9a227"
+        gold: "#e6b800"
       },
       boxShadow: {
-        soft: "0 18px 40px rgba(10, 53, 31, 0.08)"
+        soft: "0 18px 40px rgba(0, 34, 68, 0.06)"
       },
       fontFamily: {
         sans: ["Inter", "Arial", "sans-serif"]

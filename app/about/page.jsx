@@ -28,7 +28,7 @@ export default async function AboutPage() {
           <div className="space-y-6 animate-slide-in-right">
             <div className="relative group overflow-hidden rounded-2xl shadow-soft">
               <div className="absolute inset-0 bg-brand-900/10 mix-blend-multiply transition-opacity group-hover:opacity-0 duration-500" />
-              <img className="h-72 w-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105" src="/uploads/typing.jpg" alt="GPI W Typing Class" />
+              <img className="h-56 md:h-72 w-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105" src="/uploads/typing.jpg" alt="GPI W Typing Class" />
             </div>
             
             <div className="rounded-2xl bg-brand-900 p-8 text-white shadow-2xl relative overflow-hidden">

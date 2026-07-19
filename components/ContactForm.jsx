@@ -35,14 +35,14 @@ export default function ContactForm() {
           name="name" 
           required 
           placeholder="Your Name" 
-          className="rounded-xl border border-slate-200 px-4 py-3.5 text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
+          className="rounded-xl border border-slate-200 px-4 py-3.5 text-base md:text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
         />
         <input 
           name="email" 
           required 
           type="email" 
           placeholder="Email Address" 
-          className="rounded-xl border border-slate-200 px-4 py-3.5 text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
+          className="rounded-xl border border-slate-200 px-4 py-3.5 text-base md:text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
         />
       </div>
       
@@ -50,13 +50,13 @@ export default function ContactForm() {
         <input 
           name="phone" 
           placeholder="Phone Number (Optional)" 
-          className="rounded-xl border border-slate-200 px-4 py-3.5 text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
+          className="rounded-xl border border-slate-200 px-4 py-3.5 text-base md:text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
         />
         <input 
           name="subject" 
           required 
           placeholder="Subject" 
-          className="rounded-xl border border-slate-200 px-4 py-3.5 text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
+          className="rounded-xl border border-slate-200 px-4 py-3.5 text-base md:text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
         />
       </div>
       
@@ -65,7 +65,7 @@ export default function ContactForm() {
         required 
         rows={5} 
         placeholder="Type your message here..." 
-        className="rounded-xl border border-slate-200 px-4 py-3.5 text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
+        className="rounded-xl border border-slate-200 px-4 py-3.5 text-base md:text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
       />
       
       <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-extrabold py-4 transition-all transform hover:scale-105 active:scale-95 shadow-md shadow-brand-700/10">

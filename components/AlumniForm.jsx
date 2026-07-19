@@ -49,7 +49,7 @@ export default function AlumniForm() {
             type={name === "email" ? "email" : "text"}
             required={!["email", "current_status", "organization", "city"].includes(name)} 
             placeholder={label} 
-            className="rounded-xl border border-slate-200 px-4 py-3.5 text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
+            className="rounded-xl border border-slate-200 px-4 py-3.5 text-base md:text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
           />
         ))}
       </div>
@@ -58,7 +58,7 @@ export default function AlumniForm() {
         name="success_story" 
         rows={4} 
         placeholder="Share your success story or experiences at GPI W (Optional)" 
-        className="rounded-xl border border-slate-200 px-4 py-3.5 text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
+        className="rounded-xl border border-slate-200 px-4 py-3.5 text-base md:text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
       />
       
       <button className="rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-extrabold py-4 transition-all transform hover:scale-105 active:scale-95 shadow-md shadow-brand-700/10">

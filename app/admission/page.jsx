@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { CalendarCheck, FileText, GraduationCap, ListChecks, Download, ArrowRight } from "lucide-react";
+import { CalendarCheck, FileText, GraduationCap, ListChecks, Download } from "lucide-react";
+import FlyerLightbox from "@/components/FlyerLightbox";
+import ApplyNowButton from "@/components/ApplyNowButton";
 
 export const metadata = { title: "Admission | GPI W D.I. Khan" };
 
@@ -12,7 +14,7 @@ export default function AdmissionPage() {
           <h1 className="section-title mt-3 text-brand-950 font-black tracking-tight leading-none">Admission information and process</h1>
         </div>
 
-        {/* Advertisement Flyer Section */}
+        {/* Advertisement Flyer Section with Lightbox */}
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center bg-slate-50/50 rounded-3xl p-8 border border-slate-100 shadow-soft animate-fade-in-up">
           <div>
             <p className="font-extrabold text-gold uppercase tracking-wider text-xs">Official Advertisement</p>
@@ -34,26 +36,11 @@ export default function AdmissionPage() {
                 Hostel and Daycare Facilities Available
               </p>
             </div>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a 
-                href="/uploads/admission_advertisement.jpg" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg bg-brand-700 px-6 py-3 font-bold text-white shadow-md shadow-brand-700/15 transition-all duration-300 hover:bg-brand-800 hover:scale-105 active:scale-95"
-              >
-                View Full Flyer <ArrowRight size={16} />
-              </a>
+            <div className="mt-8">
+              <FlyerLightbox mode="button" />
             </div>
           </div>
-          <div className="relative group overflow-hidden rounded-2xl shadow-soft border border-slate-200 bg-white p-2">
-            <a href="/uploads/admission_advertisement.jpg" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="/uploads/admission_advertisement.jpg" 
-                alt="Admission Advertisement Flyer" 
-                className="w-full rounded-xl object-contain transition-transform duration-700 group-hover:scale-[1.02]" 
-              />
-            </a>
-          </div>
+          <FlyerLightbox mode="image" />
         </div>
         
         {/* Step List */}
@@ -73,7 +60,7 @@ export default function AdmissionPage() {
           <Step 
             icon={ListChecks} 
             title="Submit Form" 
-            text="Submit the admission form at the institute office before deadline." 
+            text="Submit the admission form online or at the office before deadline." 
             delay="0.3s"
           />
           <Step 
@@ -110,15 +97,13 @@ export default function AdmissionPage() {
         
         {/* Action Buttons */}
         <div className="mt-12 flex flex-wrap gap-4 animate-fade-in-up [animation-delay:0.4s]">
-          <Link 
-            href="/contact" 
-            className="inline-flex items-center gap-2 rounded-lg bg-brand-700 px-6 py-3.5 font-bold text-white shadow-md shadow-brand-700/15 transition-all duration-300 hover:bg-brand-800 hover:scale-105 active:scale-95"
-          >
-            Apply Now <ArrowRight size={18} />
-          </Link>
+          <ApplyNowButton 
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-brand-800 hover:bg-brand-900 px-6 py-3.5 font-bold text-white shadow-md transition-all hover:scale-105 active:scale-95 text-sm"
+            label="Apply Online Now"
+          />
           <a 
             href="#" 
-            className="inline-flex items-center gap-2 rounded-lg border border-brand-200 bg-white px-6 py-3.5 font-bold text-brand-800 transition-all duration-300 hover:bg-brand-50 hover:border-brand-350 hover:scale-105 active:scale-95"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-brand-200 bg-white px-6 py-3.5 font-bold text-brand-800 transition-all duration-300 hover:bg-brand-50 hover:border-brand-350 hover:scale-105 active:scale-95 text-sm"
           >
             <Download size={18} /> Download Prospectus
           </a>
@@ -138,7 +123,7 @@ function Step({ icon: Icon, title, text, delay }) {
         <Icon size={20} className="stroke-[2.5]" />
       </div>
       <h2 className="mt-5 text-xl font-black text-brand-900 leading-snug">{title}</h2>
-      <p className="mt-2.5 text-sm leading-relaxed text-slate-600 font-medium">{text}</p>
+      <p className="mt-2.5 text-sm leading-relaxed text-slate-650 font-medium">{text}</p>
     </div>
   );
 }

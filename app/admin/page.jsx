@@ -96,10 +96,10 @@ function CrudManager({ title, api, empty, fields, uploadField, deleteOnly }) {
 function Field({ field, form, setForm }) {
   const value = form[field.name] ?? "";
   const common = { name: field.name, placeholder: field.label, value, onChange: (e) => setForm((old) => ({ ...old, [field.name]: field.type === "checkbox" ? e.target.checked : e.target.value })) };
-  if (field.type === "textarea") return <textarea {...common} rows={4} className="rounded-md border-slate-200 md:col-span-2" />;
-  if (field.type === "select") return <select {...common} className="rounded-md border-slate-200">{field.options.map((o) => <option key={o}>{o}</option>)}</select>;
+  if (field.type === "textarea") return <textarea {...common} rows={4} className="rounded-md border-slate-200 md:col-span-2 text-base" />;
+  if (field.type === "select") return <select {...common} className="rounded-md border-slate-200 text-base">{field.options.map((o) => <option key={o}>{o}</option>)}</select>;
   if (field.type === "checkbox") return <label className="flex items-center gap-2 rounded-md bg-brand-50 px-3 py-2 font-bold text-brand-900"><input type="checkbox" checked={Boolean(value)} onChange={common.onChange} /> {field.label}</label>;
-  return <input {...common} type={field.type || "text"} className="rounded-md border-slate-200" />;
+  return <input {...common} type={field.type || "text"} className="rounded-md border-slate-200 text-base" />;
 }
 
 const courseFields = [
@@ -146,7 +146,7 @@ function SettingsManager() {
     const res = await fetch("/api/settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
     setMessage(res.ok ? "Settings updated." : "Update failed.");
   }
-  return <form onSubmit={save} className="rounded-md bg-white p-6 shadow-soft"><h2 className="text-2xl font-black text-brand-900">Site Settings</h2><div className="mt-5 grid gap-4 md:grid-cols-2">{fields.map((name) => <textarea key={name} rows={["mission", "vision", "objectives", "principal_message"].includes(name) ? 4 : 1} value={form[name] || ""} onChange={(e) => setForm((old) => ({ ...old, [name]: e.target.value }))} placeholder={name.replaceAll("_", " ")} className="rounded-md border-slate-200" />)}</div><button className="mt-5 rounded-md bg-brand-700 px-5 py-3 font-bold text-white">Save Settings</button>{message && <span className="ml-4 text-sm font-semibold text-brand-700">{message}</span>}</form>;
+  return <form onSubmit={save} className="rounded-md bg-white p-6 shadow-soft"><h2 className="text-2xl font-black text-brand-900">Site Settings</h2><div className="mt-5 grid gap-4 md:grid-cols-2">{fields.map((name) => <textarea key={name} rows={["mission", "vision", "objectives", "principal_message"].includes(name) ? 4 : 1} value={form[name] || ""} onChange={(e) => setForm((old) => ({ ...old, [name]: e.target.value }))} placeholder={name.replaceAll("_", " ")} className="rounded-md border-slate-200 text-base" />)}</div><button className="mt-5 rounded-md bg-brand-700 px-5 py-3 font-bold text-white">Save Settings</button>{message && <span className="ml-4 text-sm font-semibold text-brand-700">{message}</span>}</form>;
 }
 
 function ProfileManager() {
@@ -157,5 +157,5 @@ function ProfileManager() {
     const res = await fetch("/api/profile", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
     setMessage(res.ok ? "Profile updated." : "Update failed.");
   }
-  return <form onSubmit={save} className="grid gap-4 rounded-md bg-white p-6 shadow-soft"><h2 className="text-2xl font-black text-brand-900">Admin Profile</h2><input placeholder="Name" className="rounded-md border-slate-200" onChange={(e) => setForm({ ...form, name: e.target.value })} /><input placeholder="Email" type="email" className="rounded-md border-slate-200" onChange={(e) => setForm({ ...form, email: e.target.value })} /><input placeholder="New password" type="password" className="rounded-md border-slate-200" onChange={(e) => setForm({ ...form, password: e.target.value })} /><button className="rounded-md bg-brand-700 px-5 py-3 font-bold text-white">Update Profile</button>{message && <p className="text-sm font-semibold text-brand-700">{message}</p>}</form>;
+  return <form onSubmit={save} className="grid gap-4 rounded-md bg-white p-6 shadow-soft"><h2 className="text-2xl font-black text-brand-900">Admin Profile</h2><input placeholder="Name" className="rounded-md border-slate-200 text-base" onChange={(e) => setForm({ ...form, name: e.target.value })} /><input placeholder="Email" type="email" className="rounded-md border-slate-200 text-base" onChange={(e) => setForm({ ...form, email: e.target.value })} /><input placeholder="New password" type="password" className="rounded-md border-slate-200 text-base" onChange={(e) => setForm({ ...form, password: e.target.value })} /><button className="rounded-md bg-brand-700 px-5 py-3 font-bold text-white">Update Profile</button>{message && <p className="text-sm font-semibold text-brand-700">{message}</p>}</form>;
 }

@@ -1,27 +1,22 @@
-import CourseCard from "@/components/CourseCard";
+import CoursesFilterGrid from "@/components/CoursesFilterGrid";
 import { getPublicCourses } from "@/lib/content";
 import { Award, ExternalLink } from "lucide-react";
 
 export const metadata = { title: "Courses | GPI W D.I. Khan" };
 
 export default async function CoursesPage() {
-  const courses = await getPublicCourses(50);
+  const courses = await getPublicCourses(100); // Fetch all courses to support filters
+  
   return (
     <section className="section bg-white min-h-[70vh]">
       <div className="container">
         <div className="animate-fade-in-down">
-          <p className="font-extrabold text-gold uppercase tracking-wider text-xs">Courses</p>
+          <p className="font-extrabold text-gold uppercase tracking-wider text-xs">Courses & Trades</p>
           <h1 className="section-title mt-3 text-brand-950 font-black tracking-tight leading-none">Technical and vocational programs</h1>
         </div>
         
-        <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {courses.map((course, idx) => (
-            <CourseCard 
-              key={course.id} 
-              course={course} 
-              style={{ animationDelay: `${(idx + 1) * 0.1}s` }}
-            />
-          ))}
+        <div className="mt-12">
+          <CoursesFilterGrid courses={courses} />
         </div>
         
         {!courses.length && <p className="mt-12 rounded-2xl bg-brand-50 p-12 text-center text-slate-500 font-medium animate-fade-in">Courses will be published soon.</p>}

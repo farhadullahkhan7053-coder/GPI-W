@@ -1,6 +1,7 @@
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AdmissionModal from "@/components/AdmissionModal";
 import { getSettings } from "@/lib/content";
 
 export const revalidate = 60; // Revalidate settings every 60 seconds (ISR)
@@ -18,6 +19,7 @@ export default async function RootLayout({ children }) {
         <Header settings={settings} />
         <main>{children}</main>
         <Footer settings={settings} />
+        <AdmissionModal />
       </body>
     </html>
   );

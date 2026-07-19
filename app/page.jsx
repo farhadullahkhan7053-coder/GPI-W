@@ -14,30 +14,39 @@ import {
   ArrowRight
 } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
-import CourseCard from "@/components/CourseCard";
+import CoursesFilterGrid from "@/components/CoursesFilterGrid";
 import AnnouncementCard from "@/components/AnnouncementCard";
 import GalleryGrid from "@/components/GalleryGrid";
 import StatsCard from "@/components/StatsCard";
+import FlyerLightbox from "@/components/FlyerLightbox";
 import { getPublicAnnouncements, getPublicCourses, getPublicGallery, getSettings, getStats } from "@/lib/content";
 
 export default async function HomePage() {
   const [settings, announcements, courses, gallery, stats] = await Promise.all([
     getSettings(),
     getPublicAnnouncements(3),
-    getPublicCourses(6),
+    getPublicCourses(50), // Fetch more to support interactive filtering
     getPublicGallery(6),
     getStats()
   ]);
   
   const latest = announcements[0];
-  
+  const tickerItems = announcements.length ? announcements : [{ id: 0, title: "Admissions Open for the current session - Apply Online Now!" }];
+  const repeatedTicker = [...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems];
+
   return (
     <>
-      {/* Dynamic Announcement Ticker */}
-      <div className="bg-gold py-2.5 text-center text-sm font-black text-brand-950 uppercase tracking-widest relative overflow-hidden shadow-md z-10">
-        <div className="inline-flex items-center gap-2 animate-[pulse_2s_infinite]">
-          <span className="w-2 h-2 rounded-full bg-brand-900" />
-          {latest ? latest.title : "Admissions and institute updates will appear here."}
+      {/* Dynamic Announcement Ticker (Infinite Horizontal Loop) */}
+      <div className="bg-gold py-3 text-brand-950 text-xs font-black uppercase tracking-widest relative overflow-hidden shadow-md z-10 border-b border-gold/10 flex items-center">
+        <div className="w-full overflow-hidden flex">
+          <div className="animate-marquee whitespace-nowrap flex gap-12">
+            {repeatedTicker.map((item, idx) => (
+              <div key={`${item.id}-${idx}`} className="inline-flex items-center gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-brand-900 animate-pulse" />
+                <span>{item.title}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       
@@ -54,7 +63,7 @@ export default async function HomePage() {
           </div>
           <div className="relative group overflow-hidden rounded-2xl shadow-soft animate-slide-in-right">
             <div className="absolute inset-0 bg-brand-900/10 mix-blend-multiply transition-opacity group-hover:opacity-0 duration-500" />
-            <img style={{ height: '420px' }} className="w-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105" src="/uploads/classroom.jpg" alt="Classroom at GPI W" />
+            <img className="h-[260px] md:h-[420px] w-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105" src="/uploads/classroom.jpg" alt="Classroom at GPI W" />
           </div>
         </div>
       </section>
@@ -78,31 +87,23 @@ export default async function HomePage() {
         </div>
       </section>
       
-      {/* Courses / Trades */}
+      {/* Interactive Courses Filter Grid */}
       <section className="section bg-white">
         <div className="container">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="font-extrabold text-gold uppercase tracking-wider text-xs">Courses / Trades</p>
+              <p className="font-extrabold text-gold uppercase tracking-wider text-xs">Courses & Fields</p>
               <h2 className="section-title mt-3 text-brand-950 font-black tracking-tight leading-none">Career-oriented vocational programs</h2>
             </div>
             <Link href="/courses" className="font-extrabold text-brand-700 hover:text-brand-900 hover:translate-x-1 transition-all flex items-center gap-1.5 text-sm group">
               View all courses <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {courses.map((course, idx) => (
-              <CourseCard 
-                key={course.id} 
-                course={course} 
-                style={{ animationDelay: `${(idx + 1) * 0.15}s` }}
-              />
-            ))}
-          </div>
+          <CoursesFilterGrid courses={courses} />
         </div>
       </section>
       
-      {/* Admission Advertisement Section */}
+      {/* Admission Advertisement Section with Lightbox Modals */}
       <section className="section bg-slate-50/50 overflow-hidden">
         <div className="container grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="animate-slide-in-left">
@@ -118,36 +119,21 @@ export default async function HomePage() {
               >
                 Admission Details <ArrowRight size={18} />
               </Link>
-              <a 
-                href="/uploads/admission_advertisement.jpg" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border border-brand-200 bg-white px-6 py-3.5 font-bold text-brand-800 transition-all duration-300 hover:bg-brand-50 hover:border-brand-350 hover:scale-105 active:scale-95"
-              >
-                View Advertisement Flyer
-              </a>
+              <FlyerLightbox mode="button" />
             </div>
           </div>
-          <div className="relative group overflow-hidden rounded-2xl shadow-soft border border-slate-200 bg-white p-2 animate-slide-in-right">
-            <a href="/uploads/admission_advertisement.jpg" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="/uploads/admission_advertisement.jpg" 
-                alt="Admission Advertisement Flyer" 
-                className="w-full rounded-xl object-contain max-h-[450px] transition-transform duration-700 group-hover:scale-[1.02]" 
-              />
-            </a>
-          </div>
+          <FlyerLightbox mode="image" />
         </div>
       </section>
 
-      {/* Stats Section with Glassmorphism */}
+      {/* Stats Section with Credible Counter Label */}
       <section className="section bg-brand-900 relative overflow-hidden py-20">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(25,114,69,0.35),transparent_70%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(25,114,69,0.15),transparent_70%)] pointer-events-none" />
         <div className="container grid gap-6 sm:grid-cols-2 lg:grid-cols-4 relative z-10">
           <StatsCard label="Total Students" value={stats.students} style={{ animationDelay: "0.1s" }} />
           <StatsCard label="Total Staff" value={stats.staff} style={{ animationDelay: "0.2s" }} />
           <StatsCard label="Total Courses" value={stats.courses} style={{ animationDelay: "0.3s" }} />
-          <StatsCard label="Alumni" value={stats.alumni} style={{ animationDelay: "0.4s" }} />
+          <StatsCard label="Graduated Students" value={stats.alumni} style={{ animationDelay: "0.4s" }} />
         </div>
       </section>
       
@@ -156,7 +142,7 @@ export default async function HomePage() {
         <div className="container grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
           <div className="relative group overflow-hidden rounded-2xl shadow-soft animate-slide-in-left">
             <div className="absolute inset-0 bg-brand-900/10 mix-blend-multiply transition-opacity group-hover:opacity-0 duration-500" />
-            <img className="h-96 w-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105" src="/uploads/staff_meeting.jpg" alt="GPI W Faculty Meeting" />
+            <img className="h-64 md:h-96 w-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105" src="/uploads/staff_meeting.jpg" alt="GPI W Faculty Meeting" />
           </div>
           <div className="rounded-2xl bg-brand-900 p-10 text-white shadow-2xl relative overflow-hidden animate-slide-in-right">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl pointer-events-none" />
@@ -239,7 +225,7 @@ export default async function HomePage() {
             </div>
             <Link href="/contact" className="mt-8 inline-flex items-center gap-2 rounded-lg bg-brand-700 px-6 py-3.5 font-bold text-white shadow-md shadow-brand-700/15 transition-all duration-300 hover:bg-brand-800 hover:scale-105 active:scale-95">Get In Touch</Link>
           </div>
-          <div style={{ height: '360px' }} className="w-full rounded-2xl overflow-hidden shadow-soft border border-slate-100 animate-slide-in-right">
+          <div className="w-full h-[280px] md:h-[360px] rounded-2xl overflow-hidden shadow-soft border border-slate-100 animate-slide-in-right">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3393.0!2d70.9016!3d31.8314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x393b7f0000000001%3A0x1!2sGovt.+Polytechnic+Institute+for+Women+D.I.+Khan!5e0!3m2!1sen!2spk!4v1700000000000"
               width="100%"

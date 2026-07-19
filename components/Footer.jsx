@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { Facebook, MapPin, Mail, Phone, ExternalLink } from "lucide-react";
+import { Facebook, MapPin, Mail, Phone, ArrowUpRight } from "lucide-react";
 
 function WhatsAppIcon({ size = 18 }) {
   return (
@@ -15,99 +17,128 @@ function WhatsAppIcon({ size = 18 }) {
   );
 }
 
-const officialLinks = [
-  { label: "KPTEVTA", sublabel: "Head Office", href: "https://kptevta.gov.pk/" },
-  { label: "NAVTTC", sublabel: "Curriculum", href: "https://navttc.gov.pk/" },
-  { label: "KPBTE", sublabel: "Board of Technical Education", href: "https://www.kpbte.edu.pk/" },
-  { label: "KPTTB", sublabel: "Trade Testing Board", href: "https://www.kpttb.gov.pk/" },
+const affiliations = [
+  { name: "KPTEVTA", label: "KP Technical Education & Vocational Training Authority", href: "https://kptevta.gov.pk/" },
+  { name: "NAVTTC", label: "National Vocational & Technical Training Commission", href: "https://navttc.gov.pk/" },
+  { name: "KPBTE", label: "Khyber Pakhtunkhwa Board of Technical Education", href: "https://www.kpbte.edu.pk/" },
+  { name: "KPTTB", label: "Khyber Pakhtunkhwa Trade Testing Board", href: "https://www.kpttb.gov.pk/" },
 ];
 
 export default function Footer({ settings }) {
   const quickLinks = ["About", "Courses", "Admission", "Facilities", "Gallery", "Contact"];
+
   return (
-    <footer className="bg-brand-900 text-white">
-      <div className="container grid gap-10 py-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <img src="/logo.png" alt="Logo" className="h-10 w-10 shrink-0 object-contain bg-white rounded p-0.5" />
-            <div>
-              <h2 className="text-base font-black leading-tight">{settings.institute_name}</h2>
-              <p className="font-semibold text-gold text-xs leading-none mt-1">{settings.short_name}</p>
-            </div>
+    <footer className="bg-brand-900 text-white relative">
+      
+      {/* 1. Affiliations & Accreditations Logo Strip */}
+      <div className="bg-[#021124] border-b border-white/5 py-10">
+        <div className="container">
+          <div className="text-center max-w-xl mx-auto mb-6">
+            <span className="text-[10px] font-black text-gold uppercase tracking-widest">Accreditations & Partnerships</span>
+            <h4 className="text-base font-black text-white mt-1">Our Affiliations & Accreditation</h4>
           </div>
-          <p className="mt-4 max-w-xl text-sm leading-7 text-brand-50">{settings.tagline}</p>
-          {(settings.facebook || settings.whatsapp) && (
-            <div className="mt-5 flex gap-3">
-              {settings.facebook && settings.facebook !== "#" && (
-                <a 
-                  className="rounded-md bg-white/10 p-2.5 transition-all duration-300 hover:bg-[#1877F2] hover:scale-110 active:scale-95" 
-                  href={settings.facebook} 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Facebook"
-                >
-                  <Facebook size={18} />
-                </a>
-              )}
-              {settings.whatsapp && settings.whatsapp !== "#" && (
-                <a 
-                  className="rounded-md bg-white/10 p-2.5 transition-all duration-300 hover:bg-[#25D366] hover:scale-110 active:scale-95" 
-                  href={settings.whatsapp} 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="WhatsApp"
-                >
-                  <WhatsAppIcon size={18} />
-                </a>
-              )}
-            </div>
-          )}
-        </div>
-        <div>
-          <h3 className="font-bold text-gold tracking-wider uppercase text-xs mb-4">Quick Links</h3>
-          <div className="mt-4 grid gap-2.5 text-sm text-brand-100">
-            {quickLinks.map((item) => (
-              <Link 
-                key={item} 
-                href={`/${item.toLowerCase()}`}
-                className="transition-all duration-300 hover:text-gold hover:translate-x-1.5 inline-block font-medium w-fit"
-              >
-                {item}
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h3 className="font-bold text-gold tracking-wider uppercase text-xs mb-4">Contact</h3>
-          <div className="mt-4 grid gap-3.5 text-sm text-brand-100 font-medium">
-            <p className="flex gap-2.5 items-center"><Phone size={16} className="text-gold shrink-0" /> {settings.phone}</p>
-            <p className="flex gap-2.5 items-center"><Mail size={16} className="text-gold shrink-0" /> {settings.email}</p>
-            <p className="flex gap-2.5 items-start"><MapPin size={16} className="text-gold shrink-0 mt-0.5" /> <span className="leading-relaxed">{settings.address}</span></p>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-bold text-gold">Official Links</h3>
-          <div className="mt-4 grid gap-3 text-sm">
-            {officialLinks.map(({ label, sublabel, href }) => (
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {affiliations.map((aff) => (
               <a
-                key={label}
-                href={href}
+                key={aff.name}
+                href={aff.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-start gap-2 text-brand-50 hover:text-gold transition-colors"
+                className="group flex flex-col items-center text-center p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-gold/30 hover:bg-white/[0.04] transition-all duration-300 transform hover:-translate-y-1"
               >
-                <ExternalLink size={14} className="mt-0.5 shrink-0 opacity-60 group-hover:opacity-100" />
-                <span>
-                  <span className="font-semibold block leading-tight">{label}</span>
-                  <span className="text-xs text-brand-200 group-hover:text-gold/80">{sublabel}</span>
+                <span className="w-10 h-10 rounded-full bg-white/5 text-gold flex items-center justify-center font-black text-sm tracking-tighter group-hover:bg-gold group-hover:text-brand-950 transition-colors shadow-inner">
+                  {aff.name[0]}
+                </span>
+                <span className="mt-3 block font-black text-white text-xs tracking-wider">{aff.name}</span>
+                <span className="mt-1 block text-[10px] text-brand-200 group-hover:text-gold/80 transition-colors leading-relaxed font-semibold max-w-[140px]">
+                  {aff.label}
+                </span>
+                <span className="mt-3 inline-flex items-center gap-0.5 text-[9px] font-bold text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Visit Site <ArrowUpRight size={10} />
                 </span>
               </a>
             ))}
           </div>
         </div>
       </div>
-      <div className="border-t border-white/10 py-4 text-center text-sm text-brand-100">
-        © {new Date().getFullYear()} Government Polytechnic Institute (Women) Dera Ismail Khan. All Rights Reserved.
+
+      {/* 2. Main Minimal Footer (Leaner 3-Column Layout) */}
+      <div className="container grid gap-10 py-16 md:grid-cols-3">
+        
+        {/* Left Column: Logo & Tagline */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <img src="/logo.png" alt="Logo" className="h-10 w-10 shrink-0 object-contain bg-white rounded p-0.5" />
+            <div>
+              <h2 className="text-sm font-black leading-tight tracking-wide">{settings.institute_name}</h2>
+              <p className="font-bold text-gold text-[10px] leading-none mt-1 uppercase tracking-wider">{settings.short_name}</p>
+            </div>
+          </div>
+          <p className="max-w-md text-xs leading-relaxed text-slate-400 font-medium">
+            {settings.tagline}. Striving to empower women of Khyber Pakhtunkhwa with professional skills, academic integrity, and business confidence.
+          </p>
+          
+          {/* Social Platforms Hook */}
+          {(settings.facebook || settings.whatsapp) && (
+            <div className="pt-2 flex gap-2.5">
+              {settings.facebook && settings.facebook !== "#" && (
+                <a 
+                  className="rounded-xl bg-white/5 p-2.5 transition-all duration-300 hover:bg-[#1877F2] hover:text-white hover:scale-110 active:scale-95" 
+                  href={settings.facebook} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                >
+                  <Facebook size={16} />
+                </a>
+              )}
+              {settings.whatsapp && settings.whatsapp !== "#" && (
+                <a 
+                  className="rounded-xl bg-white/5 p-2.5 transition-all duration-300 hover:bg-[#25D366] hover:text-white hover:scale-110 active:scale-95" 
+                  href={settings.whatsapp} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp"
+                >
+                  <WhatsAppIcon size={16} />
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Center Column: Quick Navigation Links */}
+        <div>
+          <h3 className="font-black text-gold tracking-widest uppercase text-[10px] mb-4">Navigation Paths</h3>
+          <div className="grid grid-cols-2 gap-2 text-xs text-slate-400">
+            {quickLinks.map((item) => (
+              <Link 
+                key={item} 
+                href={`/${item.toLowerCase()}`}
+                className="transition-all duration-300 hover:text-gold hover:translate-x-1 inline-block font-bold w-fit py-1.5"
+              >
+                {item}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Column: Contact Details */}
+        <div>
+          <h3 className="font-black text-gold tracking-widest uppercase text-[10px] mb-4">Contact Desk</h3>
+          <div className="grid gap-3.5 text-xs text-slate-400 font-bold">
+            <p className="flex gap-2.5 items-center"><Phone size={14} className="text-gold shrink-0" /> {settings.phone}</p>
+            <p className="flex gap-2.5 items-center"><Mail size={14} className="text-gold shrink-0" /> {settings.email}</p>
+            <p className="flex gap-2.5 items-start"><MapPin size={14} className="text-gold shrink-0 mt-0.5" /> <span className="leading-relaxed font-semibold">{settings.address}</span></p>
+          </div>
+        </div>
+
+      </div>
+
+      {/* 3. Lean Copyright Bar */}
+      <div className="border-t border-white/5 py-6 text-center text-xs text-slate-500 font-bold">
+        © {new Date().getFullYear()} Government Polytechnic Institute (Women) Dera Ismail Khan. Accredited by NAVTTC / KPBTE.
       </div>
     </footer>
   );
