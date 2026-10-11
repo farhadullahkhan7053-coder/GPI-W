@@ -1,6 +1,6 @@
 import { getSettings } from "@/lib/content";
 
-export const metadata = { title: "About | GTVC Parova" };
+export const metadata = { title: "About | GPIW D.I. Khan" };
 
 export default async function AboutPage() {
   const settings = await getSettings();

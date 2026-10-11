@@ -4,7 +4,7 @@ import FlyerLightbox from "@/components/FlyerLightbox";
 import ApplyNowButton from "@/components/ApplyNowButton";
 import { getSettings } from "@/lib/content";
 
-export const metadata = { title: "Admission | GTVC Parova" };
+export const metadata = { title: "Admission | GPIW D.I. Khan" };
 
 export default async function AdmissionPage() {
   const settings = await getSettings();

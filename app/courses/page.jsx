@@ -2,7 +2,7 @@ import CoursesFilterGrid from "@/components/CoursesFilterGrid";
 import { getPublicCourses, getSettings } from "@/lib/content";
 import { Award, ExternalLink } from "lucide-react";
 
-export const metadata = { title: "Courses | GTVC Parova" };
+export const metadata = { title: "Courses | GPIW D.I. Khan" };
 
 export default async function CoursesPage() {
   const [courses, settings] = await Promise.all([

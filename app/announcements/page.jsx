@@ -1,7 +1,7 @@
 import AnnouncementCard from "@/components/AnnouncementCard";
 import { getPublicAnnouncements } from "@/lib/content";
 
-export const metadata = { title: "Announcements | GTVC Parova" };
+export const metadata = { title: "Announcements | GPIW D.I. Khan" };
 
 export default async function AnnouncementsPage() {
   const announcements = await getPublicAnnouncements(100);

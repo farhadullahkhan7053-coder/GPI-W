@@ -70,7 +70,7 @@ export default function FlyerLightbox({ mode = "button", children }) {
             <div className="bg-brand-900 border-t border-brand-850 p-4 text-white flex flex-wrap justify-between items-center gap-3">
               <div>
                 <h4 className="font-extrabold text-sm sm:text-base leading-tight text-white">Official Admission Flyer</h4>
-                <p className="text-[10px] sm:text-xs text-gold font-bold uppercase tracking-wider mt-0.5">Government Technical And Vocational College</p>
+                <p className="text-[10px] sm:text-xs text-gold font-bold uppercase tracking-wider mt-0.5">Government Polytechnic Institute (Women) Dera Ismail Khan</p>
               </div>
               <a
                 href="/uploads/admission_advertisement.jpg"

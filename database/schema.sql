@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS site_settings (
 INSERT INTO site_settings (id, institute_name, short_name, tagline, mission, vision, objectives, principal_message, phone, email, address, facebook, instagram, youtube, whatsapp)
 VALUES (
   1,
-  'Government Technical And Vocational College',
-  'GTVC Parova',
+  'Government Polytechnic Institute (Women) Dera Ismail Khan',
+  'GPIW D.I. Khan',
   'Empowering Women Through Technical & Vocational Excellence',
   'To provide quality technical and vocational education that prepares women with practical skills, confidence, and professional discipline.',
   'To become a leading women-focused technical institute recognized for skill excellence, innovation, and employability.',

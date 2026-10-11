@@ -2,7 +2,7 @@ import AlumniForm from "@/components/AlumniForm";
 import AlumniCard3D from "@/components/AlumniCard3D";
 import { query } from "@/lib/db";
 
-export const metadata = { title: "Alumni Portal | GTVC Parova" };
+export const metadata = { title: "Alumni Portal | GPIW D.I. Khan" };
 
 export default async function AlumniPage() {
   let alumni = [];
