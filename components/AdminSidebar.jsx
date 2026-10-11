@@ -17,7 +17,7 @@ export default function AdminSidebar({ active, setActive }) {
   return (
     <aside className="rounded-md bg-brand-900 p-3 text-white lg:min-h-[calc(100vh-120px)]">
       <div className="px-3 py-4">
-        <p className="text-sm font-bold text-gold">GPI W Admin</p>
+        <p className="text-sm font-bold text-gold">GTVC Admin</p>
         <p className="mt-1 text-xs text-brand-100">Content Management</p>
       </div>
       <nav className="grid gap-1">

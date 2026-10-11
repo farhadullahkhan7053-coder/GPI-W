@@ -57,7 +57,7 @@ export default function AlumniForm() {
       <textarea 
         name="success_story" 
         rows={4} 
-        placeholder="Share your success story or experiences at GPI W (Optional)" 
+        placeholder="Share your success story or experiences at our college (Optional)" 
         className="rounded-xl border border-slate-200 px-4 py-3.5 text-base md:text-sm font-medium placeholder-slate-400 focus:border-brand-700 focus:ring-1 focus:ring-brand-700 transition-all" 
       />
       

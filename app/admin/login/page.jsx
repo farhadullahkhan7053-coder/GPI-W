@@ -16,7 +16,7 @@ export default function AdminLoginPage() {
     <section className="grid min-h-[70vh] place-items-center bg-brand-50 px-4 py-16">
       <form onSubmit={submit} className="w-full max-w-md rounded-md bg-white p-8 shadow-soft ring-1 ring-slate-100">
         <p className="font-bold text-gold">Secure Admin Login</p>
-        <h1 className="mt-2 text-3xl font-black text-brand-900">GPI W D.I. Khan</h1>
+        <h1 className="mt-2 text-3xl font-black text-brand-900">GTVC Parova</h1>
         <div className="mt-8 grid gap-4">
           <input name="email" type="email" required placeholder="Email" className="rounded-md border-slate-200 text-base" />
           <input name="password" type="password" required placeholder="Password" className="rounded-md border-slate-200 text-base" />

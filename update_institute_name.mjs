@@ -10,7 +10,7 @@ const connection = await mysql.createConnection({
 console.log('Connected to database.');
 
 const [result] = await connection.execute(
-  `UPDATE site_settings SET institute_name = 'GOVERNMENT POLYTECHNIC INSTITUTE (WOMEN) DERA ISMAIL KHAN' WHERE id = 1`
+  `UPDATE site_settings SET institute_name = 'Government Technical And Vocational College', short_name = 'GTVC Parova' WHERE id = 1`
 );
 console.log('Rows affected:', result.affectedRows);
 

@@ -1,6 +1,6 @@
 import { getSettings } from "@/lib/content";
 
-export const metadata = { title: "About | GPI W D.I. Khan" };
+export const metadata = { title: "About | GTVC Parova" };
 
 export default async function AboutPage() {
   const settings = await getSettings();
@@ -14,7 +14,7 @@ export default async function AboutPage() {
         
         <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-start">
           <div className="space-y-6 leading-relaxed text-slate-600 font-medium text-base animate-slide-in-left">
-            <p>Government Polytechnic Institute for Women, D.I. Khan is dedicated to technical and vocational education for women. The institute focuses on practical training, discipline, employability, and confidence-building through professional courses and workshop-based learning.</p>
+            <p>{settings.institute_name} is dedicated to technical and vocational education for women. The institute focuses on practical training, discipline, employability, and confidence-building through professional courses and workshop-based learning.</p>
             <p>Its programs support students who want to enter employment, start small businesses, improve household income, or continue technical education with stronger foundations.</p>
             
             <div className="grid gap-6 md:grid-cols-2 pt-6">
@@ -28,7 +28,7 @@ export default async function AboutPage() {
           <div className="space-y-6 animate-slide-in-right">
             <div className="relative group overflow-hidden rounded-2xl shadow-soft">
               <div className="absolute inset-0 bg-brand-900/10 mix-blend-multiply transition-opacity group-hover:opacity-0 duration-500" />
-              <img className="h-56 md:h-72 w-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105" src="/uploads/typing.jpg" alt="GPI W Typing Class" />
+              <img className="h-56 md:h-72 w-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105" src="/uploads/typing.jpg" alt="Typing Class" />
             </div>
             
             <div className="rounded-2xl bg-brand-900 p-8 text-white shadow-2xl relative overflow-hidden">

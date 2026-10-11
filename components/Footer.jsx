@@ -25,7 +25,15 @@ const affiliations = [
 ];
 
 export default function Footer({ settings }) {
-  const quickLinks = ["About", "Courses", "Admission", "Facilities", "Gallery", "Contact"];
+  const quickLinks = [
+    { label: "About", href: "/about" },
+    { label: "Courses", href: "/courses" },
+    { label: "Admission", href: "/admission" },
+    { label: "Facilities", href: "/facilities" },
+    { label: "3D Virtual Lab", href: "/#drafting-3d-lab" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "Contact", href: "/contact" }
+  ];
 
   return (
     <footer className="bg-brand-900 text-white relative">
@@ -114,11 +122,11 @@ export default function Footer({ settings }) {
           <div className="grid grid-cols-2 gap-2 text-xs text-slate-400">
             {quickLinks.map((item) => (
               <Link 
-                key={item} 
-                href={`/${item.toLowerCase()}`}
+                key={item.label} 
+                href={item.href}
                 className="transition-all duration-300 hover:text-gold hover:translate-x-1 inline-block font-bold w-fit py-1.5"
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </div>
@@ -138,7 +146,7 @@ export default function Footer({ settings }) {
 
       {/* 3. Lean Copyright Bar */}
       <div className="border-t border-white/5 py-6 text-center text-xs text-slate-500 font-bold">
-        © {new Date().getFullYear()} Government Polytechnic Institute (Women) Dera Ismail Khan. Accredited by NAVTTC / KPBTE.
+        © {new Date().getFullYear()} {settings.institute_name}. Accredited by NAVTTC / KPBTE.
       </div>
     </footer>
   );

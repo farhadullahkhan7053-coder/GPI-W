@@ -4,15 +4,18 @@ import { Clock, GraduationCap, Briefcase, CheckCircle } from "lucide-react";
 import CourseCard from "@/components/CourseCard";
 import ApplyNowButton from "@/components/ApplyNowButton";
 import FallbackImage from "@/components/FallbackImage";
-import { getCourseBySlug, getPublicCourses } from "@/lib/content";
+import { getCourseBySlug, getPublicCourses, getSettings } from "@/lib/content";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const course = await getCourseBySlug(slug);
+  const [course, settings] = await Promise.all([
+    getCourseBySlug(slug),
+    getSettings()
+  ]);
   return { 
     title: course 
-      ? `${course.title} | Courses | GPI W D.I. Khan` 
-      : "Course Details | GPI W D.I. Khan" 
+      ? `${course.title} | Courses | ${settings.short_name}` 
+      : `Course Details | ${settings.short_name}` 
   };
 }
 

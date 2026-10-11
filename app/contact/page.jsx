@@ -2,7 +2,7 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import { getSettings } from "@/lib/content";
 
-export const metadata = { title: "Contact | GPI W D.I. Khan" };
+export const metadata = { title: "Contact | GTVC Parova" };
 
 export default async function ContactPage() {
   const settings = await getSettings();

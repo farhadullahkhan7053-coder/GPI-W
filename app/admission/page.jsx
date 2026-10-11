@@ -2,10 +2,12 @@ import Link from "next/link";
 import { CalendarCheck, FileText, GraduationCap, ListChecks, Download } from "lucide-react";
 import FlyerLightbox from "@/components/FlyerLightbox";
 import ApplyNowButton from "@/components/ApplyNowButton";
+import { getSettings } from "@/lib/content";
 
-export const metadata = { title: "Admission | GPI W D.I. Khan" };
+export const metadata = { title: "Admission | GTVC Parova" };
 
-export default function AdmissionPage() {
+export default async function AdmissionPage() {
+  const settings = await getSettings();
   return (
     <section className="section bg-white min-h-[70vh]">
       <div className="container">
@@ -20,7 +22,7 @@ export default function AdmissionPage() {
             <p className="font-extrabold text-gold uppercase tracking-wider text-xs">Official Advertisement</p>
             <h2 className="text-3xl font-black text-brand-950 tracking-tight mt-3">Admissions Open — Current Session</h2>
             <p className="mt-4 leading-relaxed text-slate-600 font-medium text-base">
-              Government Polytechnic Institute (Women) Dera Ismail Khan announces admissions for the current academic session. Explore our accredited programs and vocational courses designed to build career-ready skills.
+              {settings.institute_name} announces admissions for the current academic session. Explore our accredited programs and vocational courses designed to build career-ready skills.
             </p>
             <div className="mt-6 space-y-3 font-semibold text-brand-950 text-sm">
               <p className="flex items-center gap-2">
@@ -60,7 +62,7 @@ export default function AdmissionPage() {
           <Step 
             icon={ListChecks} 
             title="Submit Form" 
-            text="Submit the admission form online or at the office before deadline." 
+            text="Obtain the admission form for 500 rupees and submit it at the office before the deadline." 
             delay="0.3s"
           />
           <Step 
@@ -72,7 +74,7 @@ export default function AdmissionPage() {
         </div>
         
         {/* Info Grid */}
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
           <Info 
             title="Eligibility Criteria" 
             items={[
@@ -92,6 +94,15 @@ export default function AdmissionPage() {
               "Domicile or residence proof where applicable"
             ]} 
             delay="0.3s"
+          />
+          <Info 
+            title="Admission Fee & Charges" 
+            items={[
+              "Admission Form Price: 500 Rupees",
+              "Payable at the institute office upon collection",
+              "Includes prospectus and processing charges"
+            ]} 
+            delay="0.4s"
           />
         </div>
         

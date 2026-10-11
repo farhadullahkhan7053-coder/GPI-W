@@ -12,8 +12,8 @@
 
 body {
   margin: 0;
-  background: #f7faf8;
-  color: #10251a;
+  background: #f8fafc;
+  color: #0f172a;
 }
 
 a {
@@ -22,19 +22,20 @@ a {
 }
 
 .container {
-  width: min(1180px, calc(100% - 32px));
+  width: min(1200px, calc(100% - 32px));
   margin-inline: auto;
 }
 
 .section {
-  padding-block: 72px;
+  padding-block: 76px;
 }
 
 .section-title {
-  color: #08351f;
-  font-size: clamp(2rem, 4vw, 3.1rem);
-  font-weight: 800;
-  line-height: 1.08;
+  color: #071f38;
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
 }
 
 .focus-ring {
@@ -43,7 +44,7 @@ a {
 }
 
 .focus-ring:focus-visible {
-  outline-color: #c9a227;
+  outline-color: #f59e0b;
 }
 
 /* Custom Animation Utility Classes */
@@ -204,3 +205,39 @@ html {
     transform: translateY(-8px) rotate(0.5deg);
   }
 }
+
+/* 3D Hotspot Pulse Animation */
+@keyframes hotspotPing {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.hotspot-pulse {
+  animation: hotspotPing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.glass-panel-dark {
+  background: rgba(10, 37, 64, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+

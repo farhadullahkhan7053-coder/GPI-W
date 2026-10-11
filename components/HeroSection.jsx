@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, BookOpen, Phone, CheckCircle2 } from "lucide-react";
+import { ArrowRight, BookOpen, Phone, CheckCircle2, Move3d } from "lucide-react";
 
 export default function HeroSection({ settings }) {
   const handleApplyClick = () => {
@@ -58,8 +58,15 @@ export default function HeroSection({ settings }) {
             </Link>
             
             <Link 
+              href="#drafting-3d-lab" 
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-lg border border-sky-400/40 bg-sky-500/10 backdrop-blur-md hover:bg-brand-600 hover:border-brand-400 px-6 py-4 font-bold text-sky-200 hover:text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-md shadow-brand-500/15"
+            >
+              <Move3d size={18} className="text-gold" /> 3D Virtual Lab
+            </Link>
+
+            <Link 
               href="/contact" 
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-lg border border-white/30 bg-white/5 backdrop-blur-sm px-6 py-4 font-bold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/50 hover:scale-105 active:scale-95"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm px-6 py-4 font-bold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/40 hover:scale-105 active:scale-95"
             >
               <Phone size={18} /> Contact Us
             </Link>

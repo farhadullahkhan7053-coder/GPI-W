@@ -21,12 +21,8 @@ import SuccessStories from "@/components/SuccessStories";
 import StatsCard from "@/components/StatsCard";
 import FlyerLightbox from "@/components/FlyerLightbox";
 import ApplyNowButton from "@/components/ApplyNowButton";
+import DraftingLab3DSection from "@/components/DraftingLab3DSection";
 import { getSettings, getPublicCourses, getPublicAnnouncements, getPublicGallery } from "@/lib/content";
-
-export const metadata = {
-  title: "Government Polytechnic Institute (Women) D.I. Khan | Technical Education for Women",
-  description: "Official website of Government Polytechnic Institute (Women) Dera Ismail Khan. Offering DAE in Computer and Fashion Designing, DIT, and vocational certifications."
-};
 
 export default async function Home() {
   const settings = await getSettings();
@@ -90,6 +86,9 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* 5B. Interactive 3D Visualization: Drafting & Pattern Making Lab */}
+      <DraftingLab3DSection />
+
       {/* 6. Online Admission Funnel Advertisement Banner */}
       <section className="section bg-slate-50/50">
         <div className="container">
@@ -125,7 +124,7 @@ export default async function Home() {
         <div className="container grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
           <div className="relative group overflow-hidden rounded-2xl shadow-soft animate-slide-in-left">
             <div className="absolute inset-0 bg-brand-900/10 mix-blend-multiply transition-opacity group-hover:opacity-0 duration-500" />
-            <img className="h-64 md:h-96 w-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105" src="/uploads/staff_meeting.jpg" alt="GPI W Faculty Meeting" />
+            <img className="h-64 md:h-96 w-full rounded-2xl object-cover transition-transform duration-700 group-hover:scale-105" src="/uploads/staff_meeting.jpg" alt="Faculty Meeting" />
           </div>
           <div className="rounded-2xl bg-brand-900 p-10 text-white shadow-2xl relative overflow-hidden animate-slide-in-right">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl pointer-events-none" />
@@ -160,7 +159,7 @@ export default async function Home() {
         <div className="container">
           <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
             <p className="font-extrabold text-gold uppercase tracking-wider text-xs">Features</p>
-            <h2 className="section-title mt-3 text-brand-950 font-black tracking-tight">Why Choose GPI W D.I. Khan</h2>
+            <h2 className="section-title mt-3 text-brand-950 font-black tracking-tight">Why Choose {settings.institute_name}</h2>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[

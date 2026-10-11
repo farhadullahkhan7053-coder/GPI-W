@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Move3d } from "lucide-react";
 
 const links = [
   { label: "Home", href: "/" },
@@ -14,7 +14,7 @@ const links = [
   { 
     label: "Institute", 
     dropdown: [
-      { label: "Facilities", href: "/facilities" },
+      { label: "Facilities & 3D Lab", href: "/facilities" },
       { label: "Gallery", href: "/gallery" }
     ]
   },
@@ -108,7 +108,15 @@ export default function Header({ settings }) {
         </nav>
 
         {/* Action Button: Apply Now (Desktop) */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-2.5">
+          <Link
+            href="/#drafting-3d-lab"
+            className="flex items-center gap-1.5 rounded-xl border border-sky-200/80 bg-sky-50/70 hover:bg-sky-100/90 text-brand-700 px-3.5 py-2.5 text-xs font-black uppercase tracking-wider transition-all hover:scale-105"
+          >
+            <Move3d size={14} className="text-brand-600" />
+            <span>3D Virtual Lab</span>
+          </Link>
+
           <button 
             onClick={handleApplyClick}
             className="rounded-xl bg-gold hover:bg-yellow-500 text-brand-950 text-xs font-black uppercase tracking-wider px-5 py-3 transition-all hover:scale-105 active:scale-95 shadow-md shadow-gold/15"

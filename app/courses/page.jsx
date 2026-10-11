@@ -1,11 +1,14 @@
 import CoursesFilterGrid from "@/components/CoursesFilterGrid";
-import { getPublicCourses } from "@/lib/content";
+import { getPublicCourses, getSettings } from "@/lib/content";
 import { Award, ExternalLink } from "lucide-react";
 
-export const metadata = { title: "Courses | GPI W D.I. Khan" };
+export const metadata = { title: "Courses | GTVC Parova" };
 
 export default async function CoursesPage() {
-  const courses = await getPublicCourses(100); // Fetch all courses to support filters
+  const [courses, settings] = await Promise.all([
+    getPublicCourses(100),
+    getSettings()
+  ]);
   
   return (
     <section className="section bg-white min-h-[70vh]">
@@ -30,7 +33,7 @@ export default async function CoursesPage() {
             <div>
               <h3 className="text-xl font-black text-brand-950 tracking-tight">National Qualification Standards</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600 font-semibold max-w-2xl">
-                All vocational, DAE, DIT, and CBT programs at Government Polytechnic Institute (Women) D.I. Khan are aligned with modern standards set by the National Vocational and Technical Training Commission (NAVTTC).
+                All vocational, DAE, DIT, and CBT programs at {settings.institute_name} are aligned with modern standards set by the National Vocational and Technical Training Commission (NAVTTC).
               </p>
             </div>
           </div>

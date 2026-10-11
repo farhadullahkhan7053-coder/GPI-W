@@ -80,7 +80,7 @@ export default function SuccessStories() {
             Student Success Stories
           </h2>
           <p className="mt-4 text-slate-500 font-medium text-sm md:text-base leading-relaxed">
-            Discover how students at Government Polytechnic Institute (Women), D.I. Khan are transforming their skills into real-world success through AI & Digital Skills Training, freelancing, and innovation.
+            Discover how our students are transforming their skills into real-world success through AI & Digital Skills Training, freelancing, and innovation.
           </p>
         </div>
 

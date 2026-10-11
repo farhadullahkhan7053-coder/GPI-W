@@ -1,7 +1,7 @@
 import GalleryGrid from "@/components/GalleryGrid";
 import { getPublicGallery } from "@/lib/content";
 
-export const metadata = { title: "Gallery | GPI W D.I. Khan" };
+export const metadata = { title: "Gallery | GTVC Parova" };
 
 export default async function GalleryPage() {
   const images = await getPublicGallery(200);
